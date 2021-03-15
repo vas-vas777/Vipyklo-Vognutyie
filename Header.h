@@ -4,47 +4,44 @@
 #include <iomanip>
 #include <string>
 #include <fstream>
-//#include "matplotlibcpp.h"
-#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Linalg.hpp"
-#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\NdArray.hpp"
-//#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Functions\min.hpp"
-//#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Functions\max.hpp"
-//#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Functions\amax.hpp"
-//#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Functions\amin.hpp"
-#include "C:\МГТУ\ТеорияИгр\NumCpp-master\include\NumCpp\Functions.hpp"
-//#include "C:\\Users\\Василий\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\numpy\\linalg
+#include "C:\РњР“РўРЈ\РўРµРѕСЂРёСЏРРіСЂ\NumCpp-master\include\NumCpp\Linalg.hpp"
+#include "C:\РњР“РўРЈ\РўРµРѕСЂРёСЏРРіСЂ\NumCpp-master\include\NumCpp\NdArray.hpp"
+
+#include "C:\РњР“РўРЈ\РўРµРѕСЂРёСЏРРіСЂ\NumCpp-master\include\NumCpp\Functions.hpp"
+
 
 
 //namespace plt = matplotlibcpp;
 //namespace linal = nc::linalg;
-//std::vector<std::vector<double>> matrix_H = { {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} }; //матрица С
+//std::vector<std::vector<double>> matrix_H = { {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} }; //РјР°С‚СЂРёС†Р° РЎ
 //nc::NdArray<double> matrix_H;
 //nc::NdArray<double> optimal_strategy_x = { 0.0 };
 //nc::NdArray<double> optimal_strategy_y = { 0.0 };
 nc::NdArray<double> function_of_kernel(1, 5);
-//std::vector<std::vector<double>> reverse_matrix_C = { {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} }; //обратная матрица к матрице С
-//std::vector<std::vector<double>> optimal_strategy_x = { { 0.0,0.0,0.0 } }; //оптимальная стратегия х*
-//std::vector<std::vector<double>> optimal_strategy_y = { { 0.0}, {0.0}, {0.0} }; //оптимальная стратегия у*
+//std::vector<std::vector<double>> reverse_matrix_C = { {0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0} }; //РѕР±СЂР°С‚РЅР°СЏ РјР°С‚СЂРёС†Р° Рє РјР°С‚СЂРёС†Рµ РЎ
+//std::vector<std::vector<double>> optimal_strategy_x = { { 0.0,0.0,0.0 } }; //РѕРїС‚РёРјР°Р»СЊРЅР°СЏ СЃС‚СЂР°С‚РµРіРёСЏ С…*
+//std::vector<std::vector<double>> optimal_strategy_y = { { 0.0}, {0.0}, {0.0} }; //РѕРїС‚РёРјР°Р»СЊРЅР°СЏ СЃС‚СЂР°С‚РµРіРёСЏ Сѓ*
 //std::vector<double> graph_of_errors;
+std::vector<double>values_of_h;
+double differ_of_h = 0.0;
 
 
 
+double e_error = 1.0; //РІРµР»РёС‡РёРЅР° РѕС€РёР±РєРё
+double cost_of_game_v = 0.0; //С†РµРЅР° РёРіСЂС‹
 
-double e_error = 1.0; //величина ошибки
-double cost_of_game_v = 0.0; //цена игры
-
-void enter_values_of_kernel_function(int argc, char* argv[]) //ввод матрицы и проверка на ввод
+void enter_values_of_kernel_function(int argc, char* argv[]) //РІРІРѕРґ РјР°С‚СЂРёС†С‹ Рё РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ
 {
-    std::string letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUWXYZабвгдеёжзийклмнопрстуфзцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    std::string letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUWXYZР°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„Р·С†С‡С€С‰СЉС‹СЊСЌСЋСЏРђР‘Р’Р“Р”Р•РЃР–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ";
     size_t count_argv = 1;
     if (argc <= 4)
     {
-        std::cout << "Не все числа введены" << std::endl;
+        std::cout << "РќРµ РІСЃРµ С‡РёСЃР»Р° РІРІРµРґРµРЅС‹" << std::endl;
         exit(1);
     }
     if (argc > 6)
     {
-        std::cout << "Слишком много данных. Учитываются только  первые 5 чисел" << std::endl;
+        std::cout << "РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ РґР°РЅРЅС‹С…. РЈС‡РёС‚С‹РІР°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ  РїРµСЂРІС‹Рµ 5 С‡РёСЃРµР»" << std::endl;
     }
     std::string str_argv = "";
     for (size_t index = 1; index < argc; ++index)
@@ -58,7 +55,7 @@ void enter_values_of_kernel_function(int argc, char* argv[]) //ввод матрицы и пр
     }
     if (str_argv.find_first_of(letters) != std::string::npos)
     {
-        std::cout << "Введена буква" << std::endl;
+        std::cout << "Р’РІРµРґРµРЅР° Р±СѓРєРІР°" << std::endl;
         exit(1);
     }
     for (size_t index_row = 0; index_row < 5; ++index_row)
@@ -80,7 +77,7 @@ void enter_values_of_kernel_function(int argc, char* argv[]) //ввод матрицы и пр
 
 
 
-void analitic_method() //расчёт аналитическим методои
+void analitic_method() //СЂР°СЃС‡С‘С‚ Р°РЅР°Р»РёС‚РёС‡РµСЃРєРёРј РјРµС‚РѕРґРѕРё
 {
     if (2 * function_of_kernel[0] < 0 && 2 * function_of_kernel[1]>0)
     {
@@ -105,34 +102,34 @@ void analitic_method() //расчёт аналитическим методои
     std::cout << "y=" << y << std::endl;*/
     double H_x_y = function_of_kernel[0] * powf(x, 2) + function_of_kernel[1] * powf(y, 2) + function_of_kernel[2] * x * y + function_of_kernel[3] * x + function_of_kernel[4] * y;
     std::cout << "H(x,y)" << H_x_y << std::endl;
+    values_of_h.push_back(H_x_y);
    // x = 0.25; y = 0.75;
     ///std::cout << function_of_kernel[0] * powf(x, 2) + function_of_kernel[1] * powf(y, 2) + function_of_kernel[2] * x * y + function_of_kernel[3] * x + function_of_kernel[4] * y << std::endl;
 }
 
-void braun_robin() //алгоритм Брауна-Робинсона
+void braun_robin() //Р°Р»РіРѕСЂРёС‚Рј Р‘СЂР°СѓРЅР°-Р РѕР±РёРЅСЃРѕРЅР°
 {
-    //std::fstream result_file("C:\\МГТУ\\ТеорияИгр\\Lab1-Braun-Robins\\Lab1-Braun-Robins\\table.csv", std::ios_base::out | std::ios_base::trunc);
+    //std::fstream result_file("C:\\РњР“РўРЈ\\РўРµРѕСЂРёСЏРРіСЂ\\Lab1-Braun-Robins\\Lab1-Braun-Robins\\table.csv", std::ios_base::out | std::ios_base::trunc);
     double N = 2.0;
     // result_file.open("table.csv", std::ios::app| std::ios::out);
 
-    std::vector<double> wins_of_A; //выиграш игрока А
-    std::vector<double> loses_of_B;//проигрыш игрока В
+    std::vector<double> wins_of_A; //РІС‹РёРіСЂР°С€ РёРіСЂРѕРєР° Рђ
+    std::vector<double> loses_of_B;//РїСЂРѕРёРіСЂС‹С€ РёРіСЂРѕРєР° Р’
     
-    std::vector<double> high_cost_of_game; // среднии значения верхней цены игры
+    std::vector<double> high_cost_of_game; // СЃСЂРµРґРЅРёРё Р·РЅР°С‡РµРЅРёСЏ РІРµСЂС…РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
     std::vector<double>::iterator iterator_of_high_cost_of_game;
-    std::vector<double> low_cost_of_game; // среднии значения нижней цены игры
+    std::vector<double> low_cost_of_game; // СЃСЂРµРґРЅРёРё Р·РЅР°С‡РµРЅРёСЏ РЅРёР¶РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
     std::vector<double>::iterator iterator_of_low_cost_of_game;
-    double count = 1.0; //количество шагов 
-    int pos_min_element_of_high_cost_of_game = 0; //позиция минимального элемента в массиве средних значений верхней цены игры
-    int pos_max_element_of_low_cost_of_game = 0; //позиция максимального элемента в массиве средних значений верхней цены игры
+    double count = 1.0; //РєРѕР»РёС‡РµСЃС‚РІРѕ С€Р°РіРѕРІ 
+    int pos_min_element_of_high_cost_of_game = 0; //РїРѕР·РёС†РёСЏ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІРµ СЃСЂРµРґРЅРёС… Р·РЅР°С‡РµРЅРёР№ РІРµСЂС…РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
+    int pos_max_element_of_low_cost_of_game = 0; //РїРѕР·РёС†РёСЏ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІРµ СЃСЂРµРґРЅРёС… Р·РЅР°С‡РµРЅРёР№ РІРµСЂС…РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
     int pos_max_win_of_A = 0;
     int pos_min_lose_of_B = 0;
 
     double h = 0.0;
     int count_sedl = 0;
     
-    std::vector<double>values_of_h;
-
+    
     do
     {
         nc::NdArray<double> matrix_H(N+1,N+1);
@@ -144,10 +141,10 @@ void braun_robin() //алгоритм Брауна-Робинсона
         {
                 for (int index_col = 0; index_col < N + 1; ++index_col)
                 {
-                    matrix_H(index_row,index_col) = function_of_kernel[0] * powf(double(index_row) / N, 2) + function_of_kernel[1] * powf(double(index_col) / N, 2) + function_of_kernel[2] * (double(index_row) / N) * (double(index_col) / N) + function_of_kernel[3] * (double(index_row) / N) + function_of_kernel[4] * (double(index_col) / N);
+                    matrix_H(index_row,index_col) = floor((function_of_kernel[0] * powf(double(index_row) / N, 2) + function_of_kernel[1] * powf(double(index_col) / N, 2) + function_of_kernel[2] * (double(index_row) / N) * (double(index_col) / N) + function_of_kernel[3] * (double(index_row) / N) + function_of_kernel[4] * (double(index_col) / N))*1000)/1000;
                 }
         }
-       // matrix_H.print();
+       
         std::cout << "max cols - ";
         std::cout << nc::min(matrix_H.max(nc::Axis::ROW)) << std::endl;
         std::cout << "min rows - ";
@@ -156,6 +153,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
         if (nc::min(matrix_H.max(nc::Axis::ROW)).toStlVector() != nc::max(matrix_H.min(nc::Axis::COL)).toStlVector())
         {
             std::cout << "not_sedl_N=" << N << std::endl;
+            matrix_H.print();
             wins_of_A = matrix_H(matrix_H.rSlice(), 1).toStlVector();
             loses_of_B = matrix_H(1, matrix_H.rSlice()).toStlVector();
             count = 1;
@@ -202,16 +200,16 @@ void braun_robin() //алгоритм Брауна-Робинсона
                 pos_min_lose_of_B = std::distance(loses_of_B.begin(), min_result_of_B);
 
                 high_cost_of_game.push_back(wins_of_A.at(pos_max_win_of_A) * 1.0 / count);
-                //подсчёт среднего значения нижней цены игры
+                //РїРѕРґСЃС‡С‘С‚ СЃСЂРµРґРЅРµРіРѕ Р·РЅР°С‡РµРЅРёСЏ РЅРёР¶РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
                 low_cost_of_game.push_back(loses_of_B.at(pos_min_lose_of_B) * 1.0 / count);
-                //поиск минимального элемента среди значений верхней цены игры
+                //РїРѕРёСЃРє РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° СЃСЂРµРґРё Р·РЅР°С‡РµРЅРёР№ РІРµСЂС…РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
                 iterator_of_high_cost_of_game = std::min_element(high_cost_of_game.begin(), high_cost_of_game.end());
                 pos_min_element_of_high_cost_of_game = std::distance(high_cost_of_game.begin(), iterator_of_high_cost_of_game);
-                //поиск максимального элемента среди значений верхней цены игры
+                //РїРѕРёСЃРє РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° СЃСЂРµРґРё Р·РЅР°С‡РµРЅРёР№ РІРµСЂС…РЅРµР№ С†РµРЅС‹ РёРіСЂС‹
                 iterator_of_low_cost_of_game = std::max_element(low_cost_of_game.begin(), low_cost_of_game.end());
                 pos_max_element_of_low_cost_of_game = std::distance(low_cost_of_game.begin(), iterator_of_low_cost_of_game);
                 
-                //вычисление величины ошибки
+                //РІС‹С‡РёСЃР»РµРЅРёРµ РІРµР»РёС‡РёРЅС‹ РѕС€РёР±РєРё
                 e_error = high_cost_of_game.at(pos_min_element_of_high_cost_of_game) - low_cost_of_game.at(pos_max_element_of_low_cost_of_game);
 
                          
@@ -245,7 +243,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
                     copy_of_matrix_H(i, j) = nc::abs(h- matrix_H(i, j));
                 }
             }
-          //  matrix_H.print();
+           //matrix_H.print();
            // copy_of_matrix_H.print();
             nc::NdArray<double>::iterator min_copy_of_H;
             min_copy_of_H = std::min_element(copy_of_matrix_H.begin(), copy_of_matrix_H.end());
@@ -282,6 +280,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
         else
         {
         std::cout << "sedl_N=" << N << std::endl;
+        matrix_H.print();
         count_sedl++;
             for (int i = 0; i < (N + 1); ++i)
             {
@@ -298,58 +297,21 @@ void braun_robin() //алгоритм Брауна-Робинсона
             count = 0;
           
             e_error = 0;
-            //h = 0;
+            
         }
-       
-       // values_of_h[0] = h;
-       // std::cout << std::abs(values_of_h[0] - values_of_h[1]) << std::endl;
-        /*if ((std::abs(values_of_h[0] - values_of_h[1]) < 1.05) && N>2)
+
+        if (values_of_h.size()==1)
+            differ_of_h = 0.0;
+        else
+            differ_of_h = std::abs(values_of_h.back() - values_of_h.at(values_of_h.size() - 2));
+        for (auto i : values_of_h)
         {
-            break;
+            std::cout << i << " ";
         }
-        else*/
-        
-           // values_of_h[1] = values_of_h[0];
-          
-           // N++;
-           
-        
-        
-        
-    } while (N<15);
-    for (auto i : values_of_h)
-    {
-        std::cout << i << " ";
-    }
-    std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout <<"End_h="<< values_of_h.back() << ", prev_h=" << values_of_h.at(values_of_h.size()-2) << std::endl;
+    } while (differ_of_h > 0.001 || N<11);
+    
 
    
-}
-
-void print_analitic_solve() //печать аналитического рещения
-{
-    //std::cout << "x*=(";
-    //for (size_t index_column = 0; index_column < 3; ++index_column)
-    //{
-    //    std::cout << optimal_strategy_x[0][index_column] << " ";  //вектор x*
-    //}
-    //std::cout << ")";
-    //std::cout << std::endl;
-    //std::cout << "y*=(";
-    //for (size_t index_row = 0; index_row < 3; ++index_row)
-    //{
-    //    std::cout << optimal_strategy_y[index_row][0] << " "; //вектор y*
-    //}
-    //std::cout << ")";
-    //std::cout << std::endl;
-    //std::cout << "v=" << cost_of_game_v << std::endl;
-    /*nc::NdArray<double> matrix = { {1.0,2.0,3.0},{2.0,2.0,6.0},{1.0,54.0,7.0} };
-    matrix = nc::linalg::inv(matrix);
-    matrix.print();*/
-
-    //plt::plot(graph_of_errors);//построение графика
-    //plt::xlabel("Counts");
-    //plt::ylabel("e-error");
-    //plt::show();
-
 }
