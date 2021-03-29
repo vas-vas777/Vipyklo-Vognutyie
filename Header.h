@@ -143,7 +143,14 @@ void braun_robin() //алгоритм Брауна-Робинсона
         if (nc::min(matrix_H.max(nc::Axis::ROW)).toStlVector() != nc::max(matrix_H.min(nc::Axis::COL)).toStlVector())
         {
             std::cout << "N=" << N << std::endl;
-            matrix_H.print();
+            for (auto i = 0; i < N + 1; ++i)
+            {
+                for (auto j = 0; j < N + 1; ++j)
+                {
+                    std::cout << std::fixed << std::setprecision(3) << matrix_H(i, j) << "\t";
+                }
+                std::cout << std::endl;
+            }
             std::cout << "Седловой точки нет, решение методом Брауна - Робинсон" << std::endl;
            
             wins_of_A = matrix_H(matrix_H.rSlice(), 1).toStlVector();
@@ -258,8 +265,15 @@ void braun_robin() //алгоритм Брауна-Робинсона
         }
         else
         {
-        std::cout << "N=" << N << std::endl;
-        matrix_H.print();
+        std::cout << std::setprecision(0) << "N=" << N << std::endl;
+        for (auto i = 0; i < N + 1; ++i)
+        {
+            for (auto j = 0; j < N + 1; ++j)
+            {
+                std::cout << std::fixed << std::setprecision(3) << matrix_H(i, j) << "\t";
+            }
+            std::cout << std::endl;
+        }
         std::cout << "Есть седловая точка" << std::endl;
         std::cout << "Максимум по столбцам - ";
         std::cout << nc::min(matrix_H.max(nc::Axis::ROW)) << std::endl;
