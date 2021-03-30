@@ -59,15 +59,15 @@ void analitic_method() //расчёт аналитическим методои
         ;
     }
     function_of_kernel.print();
-    std::cout << "x=-(cy+d)/2a=" << "y*" << function_of_kernel[2] << "+(" << function_of_kernel[3] << "/" << 2 * function_of_kernel[0] << ")" << std::endl;
-    std::cout << "y=-(cx+e)/2b=" << "x*" << function_of_kernel[2] << "+(" << function_of_kernel[4] << "/" << 2 * function_of_kernel[1] << ")" << std::endl;
-    std::cout << std::endl;
-    std::cout << "psi(y)=" << "y*" << function_of_kernel[2] << "+(" << function_of_kernel[3] << "/" << 2 * function_of_kernel[0] << ")," << "y>=" << -(function_of_kernel[3] / function_of_kernel[2]) << std::endl;
-    std::cout << "psi(y)=0,y<" << -(function_of_kernel[3] / function_of_kernel[2]) << std::endl;
-    std::cout << std::endl;
-    std::cout << "fi(x)=" << "x*" << function_of_kernel[2] << "+(" << function_of_kernel[4] << "/" << 2 * function_of_kernel[0] << ")," << "x<=" << -(function_of_kernel[4] / function_of_kernel[2]) << std::endl;
-    std::cout << "fi(x)=0,x>" << -(function_of_kernel[4] / function_of_kernel[2]) << std::endl;
-    std::cout << std::endl;
+   // std::cout << "x=-(cy+d)/2a=" << "y*" << function_of_kernel[2] << "+(" << function_of_kernel[3] << "/" << 2 * function_of_kernel[0] << ")" << std::endl;
+  //  std::cout << "y=-(cx+e)/2b=" << "x*" << function_of_kernel[2] << "+(" << function_of_kernel[4] << "/" << 2 * function_of_kernel[1] << ")" << std::endl;
+  //  std::cout << std::endl;
+  //  std::cout << "psi(y)=" << "y*" << function_of_kernel[2] << "+(" << function_of_kernel[3] << "/" << 2 * function_of_kernel[0] << ")," << "y>=" << -(function_of_kernel[3] / function_of_kernel[2]) << std::endl;
+  //  std::cout << "psi(y)=0,y<" << -(function_of_kernel[3] / function_of_kernel[2]) << std::endl;
+  //  std::cout << std::endl;
+  //  std::cout << "fi(x)=" << "x*" << function_of_kernel[2] << "+(" << function_of_kernel[4] << "/" << 2 * function_of_kernel[0] << ")," << "x<=" << -(function_of_kernel[4] / function_of_kernel[2]) << std::endl;
+ //   std::cout << "fi(x)=0,x>" << -(function_of_kernel[4] / function_of_kernel[2]) << std::endl;
+ //   std::cout << std::endl;
     std::cout << "Вывод оптимальных стратегий" << std::endl;
     double x = (-2.0 * function_of_kernel[1] * function_of_kernel[3] + function_of_kernel[2] * function_of_kernel[4]) / (-function_of_kernel[2] * function_of_kernel[2] + 4.0 * function_of_kernel[1] * function_of_kernel[0]);
     if (x < 0.0)
@@ -79,7 +79,7 @@ void analitic_method() //расчёт аналитическим методои
     std::cout << "y=" << y << std::endl;
     double H_x_y = function_of_kernel[0] * powf(x, 2) + function_of_kernel[1] * powf(y, 2) + function_of_kernel[2] * x * y + function_of_kernel[3] * x + function_of_kernel[4] * y;
     std::cout << "Значение функции выигрыша" << std::endl;
-    std::cout << "H(x,y)" << H_x_y << std::endl;
+    std::cout << "H(x,y)=" << H_x_y << std::endl;
     values_of_h.push_back(H_x_y);
 
 }
