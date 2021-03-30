@@ -46,7 +46,7 @@ void enter_values_of_kernel_function(int argc, char* argv[]) //ввод матр
         else
             break;
 
-        std::cout << std::endl;
+       // std::cout << std::endl;
     }
 }
 
@@ -208,7 +208,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
                     h += matrix_H(i, j) * (choose_of_A[i] / count) * (choose_of_B[j] / count);
                 }
             }
-            std::cout << "h=" << h << " ";
+           
 
             for (auto i = 0; i < N + 1; ++i)
             {
@@ -229,7 +229,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
                     {
                         x = double(i) / N;
                         y = double(j) / N;
-                        std::cout << "x=" << x << " y=" << y << std::endl;
+                        std::cout << "x=" << x << " y=" << y << " ";
                        
                         values_of_h.push_back(matrix_H(i, j));
                        
@@ -244,7 +244,7 @@ void braun_robin() //алгоритм Брауна-Робинсона
                     break;
                 }
             }
-
+            std::cout << "H=" << h<<std::endl;
             N++;
             choose_of_A.clear();
             choose_of_B.clear();
